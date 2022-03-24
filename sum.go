@@ -8,15 +8,23 @@ import (
 )
 
 func main() {
-	a, err := strconv.Atoi(os.Args[1])
+	result, err := processArgs(os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
-	b, err := strconv.Atoi(os.Args[2])
+	fmt.Println(result)
+}
+
+func processArgs(args []string) (string, error) {
+	a, err := strconv.Atoi(args[1])
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-	fmt.Printf("%d + %d = %d\n", a, b, sum(a, b))
+	b, err := strconv.Atoi(args[2])
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%d + %d = %d", a, b, sum(a, b)), nil
 }
 
 func sum(a, b int) int {
